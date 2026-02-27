@@ -1,11 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DDR Day Events Schema",
-  "description": "Schema for structured extraction of Daily Drilling Report operations into machine-readable events.",
+  "title": "DDR Day Event Schema",
+  "description": "Schema for structured extraction of Daily Drilling Report (DDR) Operations rows into machine-readable JSONL events.",
   "type": "object",
   "required": [
     "wellbore",
-    "date",
+    "report_date",
     "start_time",
     "end_time",
     "activity_raw",
@@ -15,30 +15,40 @@
   "properties": {
     "wellbore": {
       "type": "string",
-      "description": "Wellbore name as stated in the DDR header."
+      "description": "Wellbore name as stated in the DDR header (preferred) or best-effort derived from filename."
     },
-    "date": {
+    "report_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date of the report in YYYY-MM-DD format."
+      "description": "Nominal report date derived from DDR filename (YYYY-MM-DD). This is the authoritative day label for the event set.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "period_start_date": {
+      "type": ["string", "null"],
+      "description": "Period start date extracted from DDR header (YYYY-MM-DD), if present.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "period_end_date": {
+      "type": ["string", "null"],
+      "description": "Period end date extracted from DDR header (YYYY-MM-DD), if present.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     },
     "start_time": {
       "type": "string",
       "pattern": "^\\d{2}:\\d{2}$",
-      "description": "Start time of operation in HH:MM format."
+      "description": "Start time of the operation block in HH:MM."
     },
     "end_time": {
       "type": "string",
       "pattern": "^\\d{2}:\\d{2}$",
-      "description": "End time of operation in HH:MM format."
+      "description": "End time of the operation block in HH:MM. May be 00:00 for rollover."
     },
     "activity_raw": {
       "type": "string",
-      "description": "Original main-sub activity classification from DDR."
+      "description": "Original activity classification from DDR (e.g., 'drilling -- trip', 'workover -- wire line')."
     },
     "state": {
       "type": "string",
-      "description": "Reported state (e.g., ok, fail)."
+      "description": "Reported state for the operation row (commonly 'ok')."
     },
     "remark": {
       "type": "string",
@@ -46,15 +56,15 @@
     },
     "end_depth_md": {
       "type": ["string", "null"],
-      "description": "End depth in measured depth (mMD) if available."
+      "description": "End depth (mMD) from the DDR Operations table if present; otherwise null."
     },
     "event_type": {
       "type": ["string", "null"],
-      "description": "Normalized event classification derived from activity and/or remark."
+      "description": "Normalized event type from controlled vocabulary (see schema/event_type_vocabulary.md). May be null for raw extraction outputs."
     },
     "source_file": {
       "type": ["string", "null"],
-      "description": "Original DDR file name."
+      "description": "Original DDR HTML filename."
     }
   }
 }
