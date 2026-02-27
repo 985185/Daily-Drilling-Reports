@@ -1,57 +1,133 @@
-# Well 15/9-F-11 A  
-## Kick-Off and Cement Plug Operations Timeline  
-### Period: 25–28 May 2013  
+# Well 15/9-F-11 A / B  
+## Kick-Off and 12¼" Section Reconstruction  
+### Period: 25 May – 1 June 2013  
 Rig: MÆRSK INSPIRER  
 Operator: Statoil  
 
 ---
 
-## Operational Timeline (Reconstructed from Daily Drilling Reports)
+# 1. Cement Plug and Kickoff Preparation (A Section)
 
-| Date | Depth (MD) | Primary Operation | Issue / Observation | Decision / Action | Operational Outcome |
-|------|------------|------------------|--------------------|-------------------|--------------------|
-| 25-May-2013 | ~3754 m → uphole | Pumped P&A cement plug. Waited on cement (WOC). Performed BOP test. | No abnormal flow observed during flow checks. | Circulated and conditioned mud. Reduced mud weight from 1.32 sg to 1.28 sg. | Cement plug placed. Well stable. Prepared for kick-off and BHA transition. |
-| 26-May-2013 | TOC tagged at 3389 m | Spotted Hi-Vis pill. Pumped 2.00 sg cement kick-off plug. | No backflow observed. Well static during checks. | Displaced cement. Pulled out cement stinger. Began make-up of 12¼" drilling BHA. | Kick-off plug integrity confirmed. Transition to drilling phase initiated. |
-| 27-May-2013 | Surface → 2494 m | RIH with 12¼" drilling BHA. | Recurrent hydraulic leaks on Top Drive System (TDS). | Replaced alignment cylinder. Repaired TDS oil cooler. Conducted choke drill. | Mechanical downtime managed. Successfully RIH to 2494 m. Ready to drill cement and kick off. |
+## 25 May 2013
+- Cement plug placed for sidetrack.
+- Mud weight reduced from 1.32 sg to 1.28 sg.
+- BOP tested.
+- Well static during flow checks.
+- Prepared for 12¼" BHA run.
 
----
-
-## Key Engineering Observations
-
-1. Cement plug integrity was verified via:
-   - Tagging TOC at 3389 m
-   - No backflow during flow checks
-   - Stable well conditions during WOC
-
-2. Mud weight reduction from 1.32 sg to 1.28 sg indicates transition from plug placement to drilling phase.
-
-3. Rig mechanical reliability (Top Drive hydraulic system) directly impacted operational timeline.
-
-4. BOP and choke drill testing confirm barrier integrity prior to drilling out cement.
+## 26–27 May 2013
+- Tagged TOC at 3389 m.
+- Pumped 2.00 sg kickoff plug.
+- Verified no backflow.
+- Ran 12¼" drilling BHA.
+- Resolved Top Drive hydraulic issues.
 
 ---
 
-## Interpretation
-
-This sequence represents the controlled transition from plug placement to sidetrack/kick-off operations in a HPHT well environment.
-
-The Daily Drilling Reports demonstrate:
-
-- Barrier verification (cement plug + BOP test)
-- Well stability confirmation
-- Managed mechanical interruption
-- Controlled progression toward 12¼" section drilling
+# 2. Drill Cement and Build 12¼" Section (B Section)
 
 ---
 
-## Why This Matters for Legacy Well Reconstruction
+## 28 May 2013 – Resume Drilling
 
-This 3-day window captures:
+Drilled 12¼" hole from 2627 m to 2787 m MD.
 
-- Cement plug depth and density
-- TOC verification
-- Mud weight strategy
-- Mechanical downtime affecting operational schedule
-- Barrier testing procedures
+- Mud: Enviromul Yellow
+- Density: 1.28 sg
+- ECD: 1.31–1.32 sg
+- Avg ROP: 19 m/hr
+- Inclination ~38–41°
 
-Such information is not available in log datasets alone and is critical for long-term well integrity assessment and decommissioning analysis.
+---
+
+## 29 May 2013 – Drill and Orient
+
+Drilled and orientated 12¼" hole from 2787 m to 2917 m MD.
+
+- ROP reduced from 11.5 m/hr to 5.2 m/hr
+- Multiple flow checks – well static
+- Formation: Tor Formation (limestone with minor marl)
+- Inclination ~62°
+- Decision to POOH for bit change
+
+---
+
+## 30 May 2013 – Ream and Build
+
+- Pulled BHA, changed motor/bit
+- Reamed from 2870 m to 2917 m
+- Drilled 2917 m to 3103 m MD
+- Avg ROP: 22 m/hr
+- ECD: 1.30 sg
+- Directional build maintained ~62° inclination
+- Azimuth turning toward 90°+
+
+---
+
+## 31 May 2013 – Section TD
+
+Drilled from 3103 m to 3197 m MD.
+
+- TD called at 05:10 hrs
+- Circulated hole clean (3.5 BU)
+- Dropped gyro
+- POOH 12¼" BHA
+- Bit grading: 1-2-WT-S-X-I-NO-TD
+- Hod Formation encountered near 3090 m
+
+Section TD: **3197 m MD**
+
+---
+
+## 1 June 2013 – Transition to Casing
+
+- Retrieved wear bushing
+- Washed BOP and wellhead
+- Began running 9⅝" casing
+- Verified float equipment
+- Ran casing to 827 m
+
+---
+
+# Engineering Summary
+
+This sequence captures:
+
+- Cement plug verification
+- Kickoff and directional build
+- 12¼" section drilling
+- TD confirmation via gyro
+- Hole conditioning
+- Transition to casing
+
+The well remained static throughout.
+Mud density stable at 1.28 sg.
+No influx or loss events recorded.
+
+---
+
+# Depth Summary
+
+| Event | Depth (m MD) |
+|--------|--------------|
+| Resume drilling | 2627 |
+| Kickoff build | ~2787–2917 |
+| Build continues | 2917–3103 |
+| Section TD | 3197 |
+| Casing initiated | Surface |
+
+---
+
+# Significance for Digital Twin Reconstruction
+
+This reconstruction provides:
+
+- Verified cement plug depth
+- Directional trajectory control
+- Mud program stability
+- Lithology confirmation
+- Barrier integrity confirmation
+- Mechanical downtime events
+- Section TD validation
+
+This dataset forms a validated benchmark window for automated DDR parsing.
