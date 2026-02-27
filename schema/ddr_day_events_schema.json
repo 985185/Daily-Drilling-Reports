@@ -1,1 +1,60 @@
-
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DDR Day Events Schema",
+  "description": "Schema for structured extraction of Daily Drilling Report operations into machine-readable events.",
+  "type": "object",
+  "required": [
+    "wellbore",
+    "date",
+    "start_time",
+    "end_time",
+    "activity_raw",
+    "state",
+    "remark"
+  ],
+  "properties": {
+    "wellbore": {
+      "type": "string",
+      "description": "Wellbore name as stated in the DDR header."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the report in YYYY-MM-DD format."
+    },
+    "start_time": {
+      "type": "string",
+      "pattern": "^\\d{2}:\\d{2}$",
+      "description": "Start time of operation in HH:MM format."
+    },
+    "end_time": {
+      "type": "string",
+      "pattern": "^\\d{2}:\\d{2}$",
+      "description": "End time of operation in HH:MM format."
+    },
+    "activity_raw": {
+      "type": "string",
+      "description": "Original main-sub activity classification from DDR."
+    },
+    "state": {
+      "type": "string",
+      "description": "Reported state (e.g., ok, fail)."
+    },
+    "remark": {
+      "type": "string",
+      "description": "Narrative engineering remark describing the operation."
+    },
+    "end_depth_md": {
+      "type": ["string", "null"],
+      "description": "End depth in measured depth (mMD) if available."
+    },
+    "event_type": {
+      "type": ["string", "null"],
+      "description": "Normalized event classification derived from activity and/or remark."
+    },
+    "source_file": {
+      "type": ["string", "null"],
+      "description": "Original DDR file name."
+    }
+  }
+}
