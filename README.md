@@ -1,77 +1,130 @@
 # Subsurface Data Lab
-Part of the Subsurface Data Lab:
-https://github.com/985185/subsurface-data-lab
-An open research environment for reconstructing, analysing, and querying operational history of oil & gas and CO₂ storage wells from real field data.
-## What is Subsurface Data Lab?
 
-Subsurface Data Lab is a collection of open workflows, datasets, and tools designed to turn raw petroleum field data into structured, queryable engineering knowledge.
+**DDR HTML in. Engineering timeline out.**
 
-Real wells generate large volumes of operational records: drilling reports, logging files, well logs, completion data, and test results. Most of this information exists only as documents intended for human reading, not machine analysis.
+An open, deterministic well-history reconstruction tool that converts Daily Drilling Reports into a machine-readable construction timeline — without manually reading 70+ days of logs.
 
-This project converts those records into structured data that can be searched, analysed, and reused for engineering, regulatory, and research purposes.
-## Why this project exists
+---
 
-Daily drilling reports, logs, and operational documents contain critical information about:
+## What it does
 
-• well construction
-• operational problems
-• well integrity indicators
-• non-productive time (NPT)
-• cementing and casing history
-• pressure behaviour
+Daily Drilling Reports (DDRs) contain the complete operational history of a well. They are written for humans. This tool makes them usable for machines.
 
-However, these records are typically stored as PDFs, HTML reports, or proprietary formats and cannot be queried across wells.
+The pipeline takes raw DDR HTML, parses each operational entry, classifies it into a typed engineering event, and assembles those events into a smoothed phase-block timeline that reflects how the well was actually constructed.
 
-This repository provides a reproducible method to reconstruct the operational history of wells and make the information usable for:
+The result is a reproducible, auditable sequence of what happened — drilling, casing, cementing, pressure tests, tripping, waiting — organised chronologically and ready for analysis.
 
-- decommissioning assessment
-- well integrity review
-- CCS storage analysis
-- regulatory evaluation
-- research and education
-## Data Source
+---
 
-Initial development uses the publicly available Volve Field dataset released by Equinor.  
-The Volve dataset is one of the few complete field data releases and provides a realistic test environment for developing reproducible subsurface data workflows.****
-## What this repository contains
+## Who it's for
 
-This is the master entry point for all Subsurface Data Lab projects.
+- **Regulators and auditors** reconstructing legacy well history from archived documents
+- **Engineers** building well timelines or operational narratives for integrity review or abandonment planning
+- **Researchers** who need a reproducible, citable method for operational data analysis (SPE-compatible workflow)
 
-Each linked repository performs a specific function:
+---
 
-| Repository | Purpose |
-|-----------|------|
-| volve-metadata-index | Indexes and catalogues all files in the Volve dataset |
-| well-knowledge-graph | Organises files by well and creates structured well manifests |
-| manifest-tools | Generates per-well structured outputs |
-| (future) digital-twin-engine | Reconstructs chronological operational timelines from drilling reports |
+## What makes it different
 
-## Core Concept
+**Deterministic and explainable.** Same input always produces the same output. No black-box inference. Every classification decision follows explicit rules that can be audited.
 
-The project follows a simple progression:
+**Engineering-aware.** The classifier understands the difference between *construction progress* (drilling ahead, running casing, cementing) and *support activity* (waiting on cement, conditioning mud, wireline runs, trips). Support activity is recorded but does not advance the construction phase.
 
-Raw files → indexed data → structured well records → reconstructed well history
+**Integrity tests are a first-class event type.** FIT, LOT, and pressure tests are classified separately so they cannot corrupt drilling-phase logic or be misread as operational progress.
 
-The long-term objective is to allow an engineer or regulator to answer questions such as:
+**Reproducible for research.** The method is rule-based and versioned. Results can be independently verified and the approach can be cited.
 
-- What actually happened in this well?
-- When did problems occur?
-- How was the well constructed?
-- What risks exist for abandonment or CO₂ storage?
+---
 
-Instead of manually reading hundreds of reports, the system reconstructs a chronological operational history.
-## Project Status
+## Output formats
 
-Active research project.
+**Event-level JSONL** — one typed operational event per DDR entry, preserving date, duration, classification, and source text.
 
-The system is under continuous development and prioritises transparency and reproducibility over optimisation.
-## Long Term Vision
+Example event record:
+```json
+{
+  "date": "2008-12-04",
+  "day_number": 12,
+  "event_type": "CEMENTING",
+  "phase": "12-1/4\" HOLE",
+  "duration_hrs": 6.5,
+  "source_text": "Pumped 120 bbls lead slurry and 80 bbls tail slurry. WOC 8 hrs.",
+  "is_construction_progress": true
+}
+```
 
-To create an open, reproducible framework for transforming legacy well data into structured knowledge that supports:
+**Phase blocks** — a smoothed macro-timeline of construction phases, suitable for well history charts or regulatory summaries.
 
-- safer well abandonment
-- improved regulatory oversight
-- CO₂ storage verification
-- historical well understanding
+Example phase block:
+```json
+{
+  "phase": "12-1/4\" HOLE",
+  "start_date": "2008-11-28",
+  "end_date": "2008-12-06",
+  "duration_days": 8,
+  "key_events": ["DRILL_AHEAD", "WIPER_TRIP", "LOT", "CEMENTING"]
+}
+```
 
-The goal is not to build a commercial platform, but to make complex subsurface operational history understandable and reusable.
+---
+
+## Quickstart
+
+**Requirements:** Python 3.9+, dependencies in `requirements.txt`
+
+```bash
+git clone https://github.com/985185/subsurface-data-lab.git
+cd subsurface-data-lab
+pip install -r requirements.txt
+```
+
+**Run the pipeline on the included example:**
+
+```bash
+[command to parse DDR HTML → structured rows]
+[command to classify rows → event JSONL]
+[command to convert events → phase blocks]
+```
+
+Output will appear in `examples/output/`.
+
+See [`GETTING_STARTED.md`](GETTING_STARTED.md) for a full walkthrough using the Volve F-15A well (December 2008 drilling campaign).
+
+---
+
+## Repository structure
+
+```
+tools/          Core engine — DDR parser, event classifier, phase-block builder
+examples/       Minimal worked example: input DDR → output JSONL and phase blocks
+docs/           Method documentation, classification rules, design decisions
+schema/         JSON schemas for event and phase-block output formats
+```
+
+---
+
+## Data source
+
+Initial development and the v1.0 release use the publicly available **Volve Field dataset** released by Equinor — one of the most complete open petroleum field data releases available, and a realistic test environment for reproducible subsurface workflows.
+
+The v1.0 release reconstructs the **F-15A well, December 2008 drilling campaign**.
+
+---
+
+## Project status
+
+Active research project. The pipeline is functional and versioned. Development prioritises transparency and reproducibility.
+
+See [`VERSION.md`](VERSION.md) for what is currently frozen and what is in progress.
+
+---
+
+## Citation
+
+If you use this work in research or regulatory analysis, please cite using [`CITATION.cff`](CITATION.cff).
+
+---
+
+## License
+
+MIT — free to use, adapt, and build on.
